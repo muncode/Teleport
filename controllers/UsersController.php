@@ -6,9 +6,8 @@ use yii\web\Controller;
 use yii\data\Pagination;
 use app\models\Users;
 
-class UsersController extends Controller
+Class UsersController extends Controller
 {
-
     public function actionIndex()
     {
         $query = Users::find();
@@ -23,7 +22,7 @@ class UsersController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        return $this-> render('index', [
+        return $this->render('index', [
             'users' => $users,
             'pagination' => $pagination,
         ]);
