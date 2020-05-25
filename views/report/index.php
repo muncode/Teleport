@@ -21,16 +21,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php $total = 0;
+    foreach ($dataProvider->models as $m){
+        $total += $m->summ;
+    }
+    ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'showFooter' => true,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'date',
+            [
+                'attribute'=>'name',
+                'format' => 'text',
+                'content'=>function($data){
+                    return $data['users']['name'];
+                }
+            ],
+            'name',
             'user_id',
-            'summ',
+            'users.telephone',
+            'users.name',
+            [
+                'filter' => null,
+                'header' => 'Сумма',
+                'value' => 'summ',
+                'footer' => 'Итого: ' . $total
+            ],
             'act',
 
             ['class' => 'yii\grid\ActionColumn'],

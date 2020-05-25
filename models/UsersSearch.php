@@ -4,22 +4,21 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Report;
+use app\models\Users;
 
 /**
- * ReportSearch represents the model behind the search form of `app\models\Report`.
+ * UsersSearch represents the model behind the search form of `app\models\Users`.
  */
-class ReportSearch extends Report
+class UsersSearch extends Users
 {
-    public $name;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'summ', 'act'], 'integer'],
-            [['date', 'name'], 'safe'],
+            [['id', 'balance', 'status'], 'integer'],
+            [['telephone', 'name'], 'safe'],
         ];
     }
 
@@ -41,22 +40,14 @@ class ReportSearch extends Report
      */
     public function search($params)
     {
-        $query = Report::find();
+        $query = Users::find();
+
+        $query->joinWith(['report']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-        ]);
-
-        $dataProvider->setSort([
-            'attributes' => [
-                'name' => [
-                    'asc' => ['users.name' => SORT_ASC],
-                    'desc' => ['users.name' => SORT_DESC],
-                    'label' => 'users.name'
-                ]
-            ]
         ]);
 
         $this->load($params);
@@ -67,16 +58,15 @@ class ReportSearch extends Report
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['LIKE', 'name', $this->name]);
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
-            'user_id' => $this->user_id,
-            'summ' => $this->summ,
-            'act' => $this->act,
+            'balance' => $this->balance,
+            'status' => $this->status,
         ]);
+
+        $query->andFilterWhere(['like', 'telephone', $this->telephone])
+            ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

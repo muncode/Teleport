@@ -20,6 +20,9 @@ class Report extends ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
+    public function getName() {
+        return $this->users->name;
+    }
     /**
      * {@inheritdoc}
      */
@@ -51,14 +54,7 @@ class Report extends ActiveRecord
             'user_id' => 'User ID',
             'summ' => 'Summ',
             'act' => 'Act',
+            'name' => 'name',
         ];
     }
 }
-/*
-class Users extends ActiveRecord
-{
-    public function getReport()
-    {
-        return $this->hasMany(Report::className(), ['user_id' => 'id']);
-    }
-}*/

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Report */
+/* @var $model1 app\models\Report */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($model1, 'date')->textInput() ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($model1, 'user_id')->textInput() ?>
 
-    <?= $form->field($model, 'summ')->textInput() ?>
+    <?= $form->field($model1, 'summ')->textInput() ?>
 
-    <?= $form->field($model, 'act')->textInput() ?>
+    <?= $form->field($model1, 'act')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
