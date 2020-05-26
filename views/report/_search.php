@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ReportSearch */
+/* @var $model1 app\models\ReportSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -18,15 +18,15 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?= $form->field($model1, 'id') ?>
 
-    <?= $form->field($model, 'date') ?>
+    <?= $form->field($model1, 'date') ?>
 
-    <?= $form->field($model, 'user_id') ?>
+    <?= $form->field($model1, 'user_id') ?>
 
-    <?= $form->field($model, 'summ') ?>
+    <?= $form->field($model1, 'summ') ?>
 
-    <?= $form->field($model, 'act') ?>
+    <?= $form->field($model1, 'act') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -64,14 +64,14 @@ class ReportController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Report();
+        $model1 = new Report();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model1->load(Yii::$app->request->post()) && $model1->save()) {
+            return $this->redirect(['view', 'id' => $model1->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'model1' => $model1,
         ]);
     }
 
@@ -84,15 +84,24 @@ class ReportController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model1 = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model1->load(Yii::$app->request->post()) && $model1->save()) {
+            return $this->redirect(['view', 'id' => $model1->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model1' => $model1,
         ]);
+    }
+
+    public function actionUpgrate($id)
+    {
+        $model1 = $this->findModel($id);
+        $model1->act == 1 ? $model1->act = 0 : $model1->act = 1;
+        $model1->summ = 0;
+        $model1->save();
+        return $this->redirect(['index']);
     }
 
     /**
@@ -118,8 +127,8 @@ class ReportController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Report::findOne($id)) !== null) {
-            return $model;
+        if (($model1 = Report::findOne($id)) !== null) {
+            return $model1;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

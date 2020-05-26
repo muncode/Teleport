@@ -13,20 +13,14 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel app\models\UsersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Список пользователей';
 ?>
 
 <div class="users-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Users', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -35,9 +29,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'telephone',
+            'phone',
             'name',
-            'balance',
+            [
+                'label' => 'Баланс',
+                'attribute'=>'summm',
+                'value' => function($model) {
+                    $summm=0;
+                    foreach ($model->report as $group) {
+                        $summm += $group->summ;
+                    }
+                    return ($summm);
+                },
+            ],
             [
                 'attribute'=>'status',
                 'value' => function($data){
@@ -45,17 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'header' => 'Статус',
+                'header' => 'Изменить статус',
                 'class' => 'yii\grid\ActionColumn',
                 'urlCreator' => function ($action, $model, $key, $index) {
                     return [$action='users/upgrate/','id'=>$model['id']];
                 },
                 'template'=>'Изменить {update}',
-            ],
-            'report.summ',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
             ],
         ],
     ]); ?>
@@ -66,12 +65,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 
-$this->title = 'Create Users';
+$this->title = 'Регистрация пользователя';
 
 Modal::begin([
-    'header' => '<h2>Hello world</h2>',
     'toggleButton' => ['label' => $this->title],
-    'footer' => 'Низ окна',
 ]);
 
 ?>
@@ -90,12 +87,10 @@ Modal::begin([
 
 <?php
 
-$this->title = 'Create Report';
+$this->title = 'Пополнить баланс';
 
 Modal::begin([
-    'header' => '<h2>Hello world</h2>',
     'toggleButton' => ['label' => $this->title],
-    'footer' => 'Низ окна',
 ]);
 
 ?>

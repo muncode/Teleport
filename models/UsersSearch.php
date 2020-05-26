@@ -4,21 +4,22 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Users;
 
 /**
  * UsersSearch represents the model behind the search form of `app\models\Users`.
  */
 class UsersSearch extends Users
 {
+    public $summm;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'balance', 'status'], 'integer'],
-            [['telephone', 'name'], 'safe'],
+            [['id', 'balance', 'status', 'phone'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -60,13 +61,15 @@ class UsersSearch extends Users
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'users.id' => $this->id,
             'balance' => $this->balance,
             'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'telephone', $this->telephone])
+        $query->andFilterWhere(['like', 'phone', $this->phone])
             ->andFilterWhere(['like', 'name', $this->name]);
+
+     //   $query->andFilterWhere(['like', 'report.summ', $this->summm]);
 
         return $dataProvider;
     }

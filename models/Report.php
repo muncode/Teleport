@@ -20,9 +20,7 @@ class Report extends ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
-    public function getName() {
-        return $this->users->name;
-    }
+
     /**
      * {@inheritdoc}
      */
@@ -50,11 +48,12 @@ class Report extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'date' => 'Date',
-            'user_id' => 'User ID',
-            'summ' => 'Summ',
-            'act' => 'Act',
-            'name' => 'name',
+            'date' => 'Дата время',
+            'user_id' => 'ID пользователя',
+            'summ' => 'Сумма',
+            'act' => 'Действие',
+            'phone' => 'Телефон',
+            'name' => 'Имя',
         ];
     }
 }

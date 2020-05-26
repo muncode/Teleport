@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Report;
 
 /**
  * ReportSearch represents the model behind the search form of `app\models\Report`.
@@ -12,13 +11,14 @@ use app\models\Report;
 class ReportSearch extends Report
 {
     public $name;
+    public $phone;
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'summ', 'act'], 'integer'],
+            [['id', 'user_id', 'summ', 'act', 'phone'], 'integer'],
             [['date', 'name'], 'safe'],
         ];
     }
@@ -43,21 +43,15 @@ class ReportSearch extends Report
     {
         $query = Report::find();
 
+        $query->joinWith(['users']);
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['date','user_id','act','name','phone']],
         ]);
 
-        $dataProvider->setSort([
-            'attributes' => [
-                'name' => [
-                    'asc' => ['users.name' => SORT_ASC],
-                    'desc' => ['users.name' => SORT_DESC],
-                    'label' => 'users.name'
-                ]
-            ]
-        ]);
 
         $this->load($params);
 
@@ -67,8 +61,6 @@ class ReportSearch extends Report
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['LIKE', 'name', $this->name]);
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -77,6 +69,9 @@ class ReportSearch extends Report
             'summ' => $this->summ,
             'act' => $this->act,
         ]);
+
+        $query->andFilterWhere(['LIKE', 'users.name', $this->name]);
+        $query->andFilterWhere(['LIKE', 'users.phone', $this->phone]);
 
         return $dataProvider;
     }

@@ -12,14 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model1, 'date')->textInput() ?>
-
     <?= $form->field($model1, 'user_id')->textInput() ?>
 
     <?= $form->field($model1, 'summ')->textInput() ?>
 
-    <?= $form->field($model1, 'act')->textInput() ?>
+    <?php
 
+    ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

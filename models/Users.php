@@ -2,20 +2,21 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveRecord as ActiveRecordAlias;
 
 /**
  * This is the model class for table "users".
  *
  * @property int $id
- * @property string $telephone
+ * @property string $phone
  * @property string $name
  * @property int $balance
  * @property int $status
  */
 
-class Users extends \yii\db\ActiveRecord
+class Users extends ActiveRecordAlias
 {
+
     public function getReport()
     {
         return $this->hasMany(Report::className(), ['user_id' => 'id']);
@@ -34,9 +35,9 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['telephone', 'name', 'balance'], 'required'],
-            [['balance', 'status'], 'integer'],
-            [['telephone', 'name'], 'string', 'max' => 32],
+            [['name', 'balance'], 'required'],
+            [['balance', 'status', 'phone'], 'integer'],
+            [['name'], 'string', 'max' => 32],
         ];
     }
 
@@ -47,7 +48,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'telephone' => 'Телефон',
+            'phone' => 'Телефон',
             'name' => 'ФИО',
             'balance' => 'Баланс',
             'status' => 'Статус',

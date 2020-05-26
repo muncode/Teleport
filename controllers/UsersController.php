@@ -9,7 +9,6 @@ use app\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\widgets\ActiveForm;
 
 /**
  * UsersController implements the CRUD actions for Users model.
@@ -42,14 +41,29 @@ class UsersController extends Controller
 
         $model1 = new Report();
 
-        if ($model1->load(Yii::$app->request->post()) && $model1->save()) {
-            return $this->redirect(['view', 'id' => $model1->id]);
+        $model1->load(Yii::$app->request->post());
+
+        if ($model1->user_id > 0){
+            $model = Users::findOne($model1->user_id);
+            if ($model->status==1) {
+                $model1->date = date("Y-m-d H:i:s");
+                $model1->act = 0;
+
+                if ($model1->load(Yii::$app->request->post()) && $model1->save()) {
+                    return $this->redirect(['index']);
+                }
+                else return $this->redirect(['index']);
+            }
+            else return $this->redirect(['index']);
         }
 
         $model = new Users();
 
+        $model->status = 1;
+        $model->balance = 0;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
 
         }
 
@@ -85,7 +99,7 @@ class UsersController extends Controller
         $model = new Users();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -105,7 +119,7 @@ class UsersController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
