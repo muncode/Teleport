@@ -1,3 +1,5 @@
+http://beee.zzz.com.ua/teleport
+
 Использовать Yii2 с PHP 7, БД - MySQL.
 
 1. Создать страницу списка пользователей:
