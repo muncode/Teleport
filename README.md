@@ -1,4 +1,4 @@
-http://beee.zzz.com.ua/Teleport/web/
+http://beee.zzz.com.ua/Teleport/web/index.php?r=users
 
 Использовать Yii2 с PHP 7, БД - MySQL.
 
