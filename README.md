@@ -1,4 +1,4 @@
-http://beee.zzz.com.ua/teleport
+http://beee.zzz.com.ua/Teleport/web/
 
 Использовать Yii2 с PHP 7, БД - MySQL.
 
